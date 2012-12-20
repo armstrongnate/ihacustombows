@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Select Bow</h1>
+<h2>Select Wood Type</h2>
+
+<form action="">
+<select id="bow_name">
+<option>Select Bow</option>
+<option value="blackbear">Black Bear</option>
+<option value="javelina">Javelina II</option>
+<option value="prowler">Prowler</option>
+</select>
+<br>
+<style type="text/css">
+#wood {
+	display:none;
+}
+#wood option {
+	display:none;
+}
+</style>
+<select id="wood">
+<option value='1'>Select Wood Type</option>
+<option class="blackbear javelina">Bubinga</option>
+<option class="blackbear javelina prowler">Bocote</option>
+<option class="blackbear javelina prowler">Cocbolo</option>
+<option>Spalted Maple</option>
+<option>Walnut</option>
+<option>Cherry</option>
+<option>Curly Maple</option>
+<option>Zebra Wood</option>
+<option>Yellow Heart</option>
+<option class="blackbear javelina">Action Wood</option>
+<option class="blackbear javelina prowler">Wenge</option>
+<option class="blackbear javelina prowler">Light Wood</option>
+<option class="blackbear javelina prowler">Dark Wood</option>
+</select>
+
+</form>
+
+<p></p>
+
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript">
+$("#bow_name option:first-child").remove()
+$(document).ready(function() {
+	black_bear_woods = {
+		bubinga: 15,
+		bocote: 30,
+		cocbolo: 30,
+		zebrawood: 15,
+		'yellow heart': 18,
+		'action wood': 18,
+		wenge: 18,
+		'select wood type': 0,
+		'light wood': 0,
+		'dark wood': 0
+	};
+	prowler_woods = {
+		bocote: 15,
+		cocbolo: 40,
+		'yellow heart': 40,
+		'select wood type': 0,
+		'light wood': 0,
+		'dark wood': 0
+	};
+	
+	$('#bow_name').change(function() {
+		//$("#bow_name option:first-child").remove();
+		$("#wood").show();
+		$("#wood option." + $("#bow_name").val()).show();
+		$("#wood").find('option:first-child').attr('selected', true);
+	});
+	$('select').change(function() {
+		console.log($("#wood option:selected").text().toLowerCase());
+		// get total
+		
+		var total = 0;
+		
+		// calculate bow
+		var name = $("#bow_name option:selected").val();
+		switch (name) {
+		
+		case "blackbear":
+			total += 250;
+			total += black_bear_woods[$("#wood option:selected").text().toLowerCase()];
+			break;
+		
+		case "javelina":
+			total += 450;
+			total += black_bear_woods[$("#wood option:selected").text().toLowerCase()];
+			break;
+		
+		case "prowler":
+			total += 750;
+			total += prowler_woods[$("#wood option:selected").text().toLowerCase()];
+			break;
+			
+		default:
+			total = "Please select bow and wood type"
+		}
+		$("p").text(total);
+	});
+	$("p").text(0);
+});
+</script>
